@@ -28,23 +28,78 @@
 ></script>
 <!-- AXIOS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-<!-- JS -->
-
 </head>
+
 <body>
-  <h3 id="question"></h3>
-  <div class="form-check">
-  <input type="radio" id="answer0" name="gender" value="male">
-  <label for="male" id="answer0label">Male</label><br>
-  <input type="radio" id="answer1" name="gender" value="female">
-  <label for="female" id="answer1label">Female</label><br>
-  <input type="radio" id="answer2" name="gender" value="other">
-  <label for="other" id="answer2label">Other</label><br>
-  <input type="radio" id="answer3" name="gender" value="other">
-  <label for="other" id="answer3label">Other</label>
-  <button type="button" id="confirm" class="btn btn-primary">Primary</button>
-  <p id="result"></p>
+  <nav class="navbar d-flex justify-content-center p-2" style="background-color: #ADDCC9;">
+    <a class="navbar-brand" href="#"
+      ><img src="../assets/Menu_icon_2_icon-icons.com_71856.png" style="width: 50px; height: 50px;" alt=""
+    /></a>
+  </nav>
+
+  <section class="d-flex justify-content-center p-4">
+    <a href="#"
+      ><img src="../assets/question.png" style="width: 100px; height: 100px;" alt=""
+    /></a>
+  </section>
+
+  <!-- RADIA con le risposte possibili -->
+  <div class="container d-flex justify-content-center p-4">
+    <div class="card-body text-center">
+    <h3 id="question" class="card-title text-center"></h3>
+    <div class="form-check">
+    <input type="radio" id="answer0" class="radioInput" name="gender" value="primoValore">
+    <label for="primoValore" id="answer0label">Male</label>
+    <br>
+    <input type="radio" id="answer1" class="radioInput" name="gender" value="secondoValore">
+    <label for="secondoValore" id="answer1label">Female</label>
+    <br>
+    <input type="radio" id="answer2" class="radioInput" name="gender" value="terzoValore">
+    <label for="terzoValore" id="answer2label">Other</label>
+    <br>
+    <input type="radio" id="answer3" class="radioInput" name="gender" value="quartoValore">
+    <label for="quartoValore" id="answer3label">Other</label>
+    <br>
+    <button type="button" id="confirm" class="btn btn-primary">Primary</button>
+    </div>
+    <div class="container" id="recapTable">
+    </div>
+
+    <button class="btn btn-light p-4" ><img src="../assets/next_arrow_14440.png" style="width: 30px; height: 30px;" alt=""> Send</button>
+    <button class="btn btn-light p-4"><img src="../assets/iconfinder-send-4341325_120524.png" style="width: 30px; height: 30px;" alt=""> Next Question</button>
+    <ul class="list-group list-group-horizontal justify-content-center p-4">
+      <li class="list-group-item">1</li>
+      <li class="list-group-item">2</li>
+      <li class="list-group-item">3</li>
+      <li class="list-group-item">4</li>
+      <li class="list-group-item">5</li>
+      <li class="list-group-item">6</li>
+      <li class="list-group-item">7</li>
+      <li class="list-group-item">8</li>
+      <li class="list-group-item">9</li>
+      <li class="list-group-item">10</li>
+    </ul>
   </div>
-  <script type="text/javascript" src="./apihome.js"></script>
+</div>
+<!-- FOOTER -->
+<footer class="font-small" style="background-color: #ADDCC9;">
+  <div class="container justify-content-center">
+    <div class="mb-5 d-flex justify-content-center">
+      <a class="p-4">
+        <img src="../assets/FB_icon-icons.com_65484.png" style="width: 30px; height: 30px;"  alt="">
+      </a>
+      <a class="p-4">
+         <img src="../assets/TWITTER_icon-icons.com_65486.png" style="width: 30px; height: 30px;"  alt="">
+      </a>
+      <a class="p-4">
+        <img src="../assets/google_icon-icons.com_65494 (1).png" style="width: 30px; height: 30px;" alt="">
+      </a>
+  </div>
+  <div class="text-center" style="background-color: white; width: 100%;">
+    © 2020 Copyright
+  </div>
+</footer>
+<!-- JS -->
+<script type="text/javascript" src="./apihome.js"></script>
 </body>
 </html>
