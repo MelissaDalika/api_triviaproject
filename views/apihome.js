@@ -26,21 +26,38 @@ function buildCategoryOptions(dataArr) {
 //Chiamata della funzione per le opzioni
 getCategoryOptions()
 
+
+//Composizione dell'URL e chiamata all'API con le opzioni come query
+function urlComposer() {
+  let questionsNbrValue = document.getElementById("questionsNbr").value;
+  let categoryValue = document.getElementById("category").value;
+  let difficultyValue = document.getElementById("difficulty").value;
+  let questionsTypeValue = document.getElementById("questionsType").value;
+  let composedUrl = `https://opentdb.com/api.php?amount=${questionsNbrValue}&category=${categoryValue}&difficulty=${difficultyValue}&type=${questionsTypeValue}`;
+  document.getElementById("pTest").innerText = composedUrl;
+  apiRequest(composedUrl)
+}
+
+
+
 //Chiamata all'API con ricezione delle domande
+function apiRequest(url) {
 axios
-  .get("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=boolean")
+  .get(url)
   .then((response) => {
     infoQuestions.questions = response.data.results;
     questionBuilder(infoQuestions.questions);
     createRecapList();
 });
+}
 
 
 //Creazione della tabella di riepilogo in funzione del n° di domande
 function createRecapList() {
+  document.getElementById("recapList").innerHTML = ""; //svuota il Div ogni iterazione
   let recapList = document.createElement("ul");
   recapList.setAttribute("class", "list-group list-group-horizontal justify-content-center p-4");
-
+  
   for (let i = 0; i < infoQuestions.questions.length; i++) {
     recapList.innerHTML += `<li class="list-group-item">${i+1}</li>`
   }
@@ -113,10 +130,12 @@ function checkIfRight(inputWord) {
 }
 
 
-//Event Listener BOTTONE
+//Event Listener BOTTONI
 document.getElementById("confirm").addEventListener("click", () =>{
   checkIfRight(getRadioVal());
-})
+});
+
+document.getElementById("urlComposer").addEventListener("click", () => urlComposer());
 
 
 //Funzione di shuffle presa online che shuffle non esiste di default in js
