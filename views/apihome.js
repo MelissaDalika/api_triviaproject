@@ -8,22 +8,21 @@ axios
   .then((response) => {
     infoQuestion.question = response.data.results;
     questionBuilder(infoQuestion.question);
-    createRecapTable();
+    createRecapList();
 });
 
 //Creazione della tabella di riepilogo in funzione del n° di domande
-function createRecapTable() {
-  let recapTable = document.createElement("table");
-  let recapTableRow = document.createElement("tr");
-  
+function createRecapList() {
+  let recapList = document.createElement("ul");
+  let recapListRow = document.createElement("li");
+  recapList.class = 
   for (let i = 0; i < infoQuestion.question.length; i++) {
     console.log("ciao");
-    recapTableRow.innerHTML += `<td>${i+1}</td>`
+    recapListRow.innerHTML += `<td>${i+1}</td>`
   }
 
-  console.log("cdsadaso");
-  recapTable.appendChild(recapTableRow);
-  document.getElementById("recapTable").appendChild(recapTable);
+  recapList.appendChild(recapListRow);
+  document.getElementById("recapList").appendChild(recapList);
 }
 
 function questionBuilder(questionArr) {
