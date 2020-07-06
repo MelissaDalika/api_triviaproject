@@ -1,13 +1,13 @@
 let currentQuestion= 0;
-let infoQuestion = {}
+let infoQuestions = {}
 let currentPoints = 0;
 
 //Chiamata all'API con ricezione delle domande
 axios
   .get("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple")
   .then((response) => {
-    infoQuestion.question = response.data.results;
-    questionBuilder(infoQuestion.question);
+    infoQuestions.questions = response.data.results;
+    questionBuilder(infoQuestions.questions);
     createRecapListVariant();
 });
 
@@ -16,7 +16,7 @@ axios
   let recapList = document.createElement("ul");
   let recapListRow = document.createElement("li");
   recapList.class = 
-  for (let i = 0; i < infoQuestion.question.length; i++) {
+  for (let i = 0; i < infoQuestions.questions.length; i++) {
     console.log("ciao");
     recapListRow.innerHTML += `<td>${i+1}</td>`
   }
@@ -30,7 +30,7 @@ function createRecapListVariant() {
   let recapList = document.createElement("ul");
   recapList.setAttribute("class", "list-group list-group-horizontal justify-content-center p-4");
 
-  for (let i = 0; i < infoQuestion.question.length; i++) {
+  for (let i = 0; i < infoQuestions.questions.length; i++) {
     recapList.innerHTML += `<li class="list-group-item">${i+1}</li>`
   }
 
@@ -40,15 +40,15 @@ function createRecapListVariant() {
 
 //Creazione dei Radio contententi le risposte 
 function questionBuilder(questionArr) {
-  infoQuestion.questionText = questionArr[currentQuestion].question;
-  infoQuestion.correctAnswer = questionArr[currentQuestion].correct_answer;
-  infoQuestion.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
-  console.log(infoQuestion)
-  let possibleAnswers = infoQuestion.wrongAnswers.concat(infoQuestion.correctAnswer);
+  infoQuestions.questionText = questionArr[currentQuestion].questions;
+  infoQuestions.correctAnswer = questionArr[currentQuestion].correct_answer;
+  infoQuestions.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
+  console.log("questionBuilder sta andando")
+  let possibleAnswers = infoQuestions.wrongAnswers.concat(infoQuestions.correctAnswer);
   shuffle(possibleAnswers);
  
 
-  document.getElementById("question").innerHTML = infoQuestion.questionText;
+  document.getElementById("question").innerHTML = infoQuestions.questionText;
   for(let i=0; i<possibleAnswers.length; i++){
   document.getElementById(`answer${i}label`).innerText = possibleAnswers[i]
   }
@@ -63,7 +63,7 @@ function getRadioVal() {
   // loop through list of radio buttons
   for (let i = 0; i < radiosArr.length; i++) {
       if ( radiosArr[i].checked ) { // radio checked?
-        console.log("sto andando");
+        console.log("getRadioVal sta andando");
         selectedRadioValue = document.getElementById(`answer${i}label`).innerText; // if so, hold its value in val
           break; // and break out of for loop
       }
@@ -72,14 +72,26 @@ function getRadioVal() {
 }
 
 
-//Se risposta giusta aumenta punteggio di 1, altrimenti -1. Cambia colore tabella riepilogo. Aumenta contatore domanda e carica nuova domanda.
+//Se risposta giusta aumenta punteggio di 1, altrimenti -1. Cambia colore tabella riepilogo. Aumenta contatore domanda e carica nuova domanda. Se domande esaurite finisce gioco.
 function checkIfRight(inputWord) {
-  if (inputWord == infoQuestion.correctAnswer) {
-    currentPoints++
-  } else { currentPoints--}
+  let selectedRecapListCell = document.getElementById("recapList").getElementsByTagName("ul")[0].getElementsByTagName("li")[currentQuestion];
+
+  if (inputWord == infoQuestions.correctAnswer) {
+    currentPoints += 2
+    selectedRecapListCell.setAttribute("style","background-color: green;");
+  } else { 
+    currentPoints--; 
+    selectedRecapListCell.setAttribute("style","background-color: red;");
+  }
+  
+
+  if (currentQuestion == (infoQuestions.questions.length-1)) {
+    alert(`domande finite con punteggio ${currentPoints}. Necessario redirect a pagina esterna o costruzione di elemento html nuovo`)
+  } else {
   currentQuestion++ ;
-  questionBuilder(infoQuestion.question);
+  questionBuilder(infoQuestions.questions);
   console.log(currentPoints);
+  }
 }
 
 
@@ -115,8 +127,8 @@ function shuffle(arra1) {
     console.log(document.getElementById(`answer${i}`).checked);
     if(document.getElementById(`answer${i}`).checked){
       console.log(document.getElementById(`answer${i}`).innerText);
-      if(document.getElementById(`answer${i}`).innerHTML == infoQuestion.correctAnswer){
-        console.log(infoQuestion.correctAnswer);
+      if(document.getElementById(`answer${i}`).innerHTML == infoQuestions.correctAnswer){
+        console.log(infoQuestions.correctAnswer);
         document.getElementById("result").innerText = "True"
       }
       break;
