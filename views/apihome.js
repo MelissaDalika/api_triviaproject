@@ -2,17 +2,17 @@ let currentQuestion= 0;
 let infoQuestion = {}
 let currentPoints = 0;
 
-
+//Chiamata all'API con ricezione delle domande
 axios
   .get("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple")
   .then((response) => {
     infoQuestion.question = response.data.results;
     questionBuilder(infoQuestion.question);
-    createRecapList();
+    createRecapListVariant();
 });
 
 //Creazione della tabella di riepilogo in funzione del n° di domande
-function createRecapList() {
+/* function createRecapList() {
   let recapList = document.createElement("ul");
   let recapListRow = document.createElement("li");
   recapList.class = 
@@ -23,17 +23,30 @@ function createRecapList() {
 
   recapList.appendChild(recapListRow);
   document.getElementById("recapList").appendChild(recapList);
+} */
+
+//Creazione della tabella di riepilogo in funzione del n° di domande
+function createRecapListVariant() {
+  let recapList = document.createElement("ul");
+  recapList.setAttribute("class", "list-group list-group-horizontal justify-content-center p-4");
+
+  for (let i = 0; i < infoQuestion.question.length; i++) {
+    recapList.innerHTML += `<li class="list-group-item">${i+1}</li>`
+  }
+
+  document.getElementById("recapList").appendChild(recapList);
 }
 
+
+//Creazione dei Radio contententi le risposte 
 function questionBuilder(questionArr) {
   infoQuestion.questionText = questionArr[currentQuestion].question;
   infoQuestion.correctAnswer = questionArr[currentQuestion].correct_answer;
   infoQuestion.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
   console.log(infoQuestion)
   let possibleAnswers = infoQuestion.wrongAnswers.concat(infoQuestion.correctAnswer);
-  console.log(possibleAnswers);
   shuffle(possibleAnswers);
-  console.log(possibleAnswers);
+ 
 
   document.getElementById("question").innerHTML = infoQuestion.questionText;
   for(let i=0; i<possibleAnswers.length; i++){
@@ -41,7 +54,7 @@ function questionBuilder(questionArr) {
   }
 }
 
-
+// Cerca il Radio selezionato e prendine il valore
 function getRadioVal() {
   let selectedRadioValue;
   // get list of radio buttons with specified name
