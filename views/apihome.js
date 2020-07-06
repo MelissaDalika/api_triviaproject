@@ -6,21 +6,38 @@ axios
     questionBuilder(question)
   });
   
-
+let currentQuestion= 0;
+let infoQuestion = {}
 function questionBuilder(questionArr) {
-  let questionText = questionArr[0].question;
-  let correctAnswer = questionArr[0].correct_answer;
-  let wrongAnswers = questionArr[0].incorrect_answers;
-
-  let possibleAnswers = wrongAnswers.concat(correctAnswer);
+  infoQuestion.questionText = questionArr[currentQuestion].question;
+  infoQuestion.correctAnswer = questionArr[currentQuestion].correct_answer;
+  infoQuestion.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
+  console.log(infoQuestion)
+  let possibleAnswers = infoQuestion.wrongAnswers.concat(infoQuestion.correctAnswer);
   console.log(possibleAnswers);
   shuffle(possibleAnswers);
   console.log(possibleAnswers);
 
-  document.getElementById("question").innerHTML = questionText;
-  
+  document.getElementById("question").innerHTML = infoQuestion.questionText;
+  for(let i=0; i<possibleAnswers.length; i++){
+  document.getElementById(`answer${i}label`).innerText = possibleAnswers[i]
+  }
+}
+function checkNextQuestion (){
+  for(let i=0; i<4; i++){
+    if(document.getElementById(`answer${i}`).checked){
+      if(document.getElementById(`answer${i}`).innerText == infoQuestion.correctAnswer){
+        document.getElementById("result").innerText = "True"
+      }else {
+        document.getElementById("result").innerText = "False"
+      }
+    }
+  }
 }
 
+document.getElementById("confirm").addEventListener("click", () =>{
+  checkNextQuestion();
+})
 
 //Funzione di shuffle presa online che shuffle non esiste di default in js
 function shuffle(arra1) {
