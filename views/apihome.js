@@ -2,31 +2,42 @@ let currentQuestion= 0;
 let infoQuestions = {}
 let currentPoints = 0;
 
+//Costructor HTML che richiede lista categoria/id all'API e forma le relative opzioni dentro al form con id "category"
+
+function getCategoryOptions() {
+  let categoryArr
+  axios
+    .get("https://opentdb.com/api_category.php")
+    .then((response) => categoryArr = response.data.trivia_categories)
+    .then(() =>console.log(categoryArr))
+    .then(() => buildCategoryOptions(categoryArr))
+}
+
+function buildCategoryOptions(dataArr) {
+  let data = document.getElementById("category");
+  data.innerHTML = `<option value="">Any Category</option>`;
+
+  for (let i = 0; i < dataArr.length; i++) {
+    data.innerHTML += `<option value=${dataArr[i].id}>${dataArr[i].name}</option>`;
+  }
+}
+
+
+//Chiamata della funzione per le opzioni
+getCategoryOptions()
+
 //Chiamata all'API con ricezione delle domande
 axios
-  .get("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple")
+  .get("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=boolean")
   .then((response) => {
     infoQuestions.questions = response.data.results;
     questionBuilder(infoQuestions.questions);
-    createRecapListVariant();
+    createRecapList();
 });
 
-//Creazione della tabella di riepilogo in funzione del n° di domande
-/* function createRecapList() {
-  let recapList = document.createElement("ul");
-  let recapListRow = document.createElement("li");
-  recapList.class = 
-  for (let i = 0; i < infoQuestions.questions.length; i++) {
-    console.log("ciao");
-    recapListRow.innerHTML += `<td>${i+1}</td>`
-  }
-
-  recapList.appendChild(recapListRow);
-  document.getElementById("recapList").appendChild(recapList);
-} */
 
 //Creazione della tabella di riepilogo in funzione del n° di domande
-function createRecapListVariant() {
+function createRecapList() {
   let recapList = document.createElement("ul");
   recapList.setAttribute("class", "list-group list-group-horizontal justify-content-center p-4");
 
@@ -40,7 +51,7 @@ function createRecapListVariant() {
 
 //Creazione dei Radio contententi le risposte 
 function questionBuilder(questionArr) {
-  infoQuestions.questionText = questionArr[currentQuestion].questions;
+  infoQuestions.questionText = questionArr[currentQuestion].question;
   infoQuestions.correctAnswer = questionArr[currentQuestion].correct_answer;
   infoQuestions.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
   console.log("questionBuilder sta andando")
@@ -49,8 +60,15 @@ function questionBuilder(questionArr) {
  
 
   document.getElementById("question").innerHTML = infoQuestions.questionText;
+
+  let container = document.getElementById("radiaContainer");
+  container.innerHTML = "";
   for(let i=0; i<possibleAnswers.length; i++){
-  document.getElementById(`answer${i}label`).innerText = possibleAnswers[i]
+    container.innerHTML += `
+    <div class="form-check">
+    <input type="radio" id="answer${i}" class="radioInput" name="triviaAnswers"   value="${possibleAnswers[i]}">
+    <label for="answer${i}" id="answer0label">${possibleAnswers[i]}</label>
+    </div>`
   }
 }
 
