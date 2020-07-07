@@ -115,7 +115,11 @@ function checkIfRight(inputWord) {
   if (inputWord == infoQuestions.correctAnswer) {
     currentPoints += 2
     selectedRecapListCell.setAttribute("style","background-color: green;");
-  } else { 
+  } 
+  else if (inputWord == "skip"){
+    selectedRecapListCell.setAttribute("style","background-color: yellow;");
+  }
+  else { 
     currentPoints--; 
     selectedRecapListCell.setAttribute("style","background-color: red;");
   }
@@ -130,13 +134,23 @@ function checkIfRight(inputWord) {
   }
 }
 
+// NEXT CHANCE FOR SKIP QUESTION
+  let chanceForSkipQuestion = () => {
+
+ }
 
 //Event Listener BOTTONI
+//Bottone conferma risposta
 document.getElementById("confirm").addEventListener("click", () =>{
   checkIfRight(getRadioVal());
 });
 
 document.getElementById("urlComposer").addEventListener("click", () => urlComposer());
+
+//Bottone salta domanda
+document.getElementById("skip").addEventListener("click", () =>{
+  checkIfRight("skip");
+});
 
 
 //Funzione di shuffle presa online che shuffle non esiste di default in js
