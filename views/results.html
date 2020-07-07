@@ -80,5 +80,16 @@
       © 2020 Copyright
     </div>
     <!-- JS -->
+    <script>
+      let arrayProva2 = [
+      {"_id":"5f04791a498ad7680006e2f2","playerName":"Ciccio","results":10},
+      {"_id":"5f047935498ad7680006e2f8","playerName":"Banano","results":50},
+      {"_id":"5f048286498ad7680006eba1","playerName":"Giangiulioberto","results":99},
+      {"_id":"5f047fb2498ad7680006e947","playerName":"Giangiulioberto","results":99}];
+      //let arrayProva2 = JSON.parse(arrayProva)
+      let num = (arrayProva2.length-1);
+      document.getElementsByClassName("card-title")[0].innerText = arrayProva2[num].playerName;
+      document.getElementsByClassName("card-text")[0].innerText = `Il tuo punteggio è stato ${arrayProva2[num].results}`;
+    </script>
   </body>
 </html>
