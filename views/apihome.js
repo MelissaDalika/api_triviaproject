@@ -54,6 +54,7 @@ axios
 
 //Creazione della tabella di riepilogo in funzione del n° di domande
 function createRecapList() {
+  currentQuestion = 0;
   document.getElementById("recapList").innerHTML = ""; //svuota il Div ogni iterazione
   let recapList = document.createElement("ul");
   recapList.setAttribute("class", "list-group list-group-horizontal justify-content-center p-4");
@@ -84,7 +85,7 @@ function questionBuilder(questionArr) {
     container.innerHTML += `
     <div class="form-check">
     <input type="radio" id="answer${i}" class="radioInput" name="triviaAnswers"   value="${possibleAnswers[i]}">
-    <label for="answer${i}" id="answer0label">${possibleAnswers[i]}</label>
+    <label for="answer${i}" id="answer${i}label">${possibleAnswers[i]}</label>
     </div>`
   }
 }
