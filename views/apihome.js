@@ -32,7 +32,6 @@ function urlComposer() {
   let difficultyValue = document.getElementById("difficulty").value;
   let questionsTypeValue = document.getElementById("questionsType").value;
   let composedUrl = `https://opentdb.com/api.php?amount=${questionsNbrValue}&category=${categoryValue}&difficulty=${difficultyValue}&type=${questionsTypeValue}`;
-  document.getElementById("pTest").innerText = composedUrl;
   apiRequest(composedUrl);
 }
 

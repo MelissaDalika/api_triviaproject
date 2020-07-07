@@ -26,6 +26,16 @@
     <a class="navbar-brand" href="#"><img src="Menu_icon_2_icon-icons.com_71856.png"
         style="width: 50px; height: 50px;" alt="" /></a>
   </nav>
+  <nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">@</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+    </form>
+  </nav>
   <section class="d-flex justify-content-center p-4">
     <a href="#"><img src="brainlogo.png" style="width: 100px; height: 100px;" alt="" /></a>
   </section>
@@ -65,7 +75,7 @@
     </div>
     <button type="button" class="btn btn-danger h-50 mb-2 align-self-end px-5" id="urlComposer">Get STARTED!</button>
   </div>
-  <p id="pTest"></p>
+
   <!-- RADIA con le risposte possibili -->
   <div class="container d-flex-column justify-content-center align-items-center p-4">
     <div class="card-body text-center">
@@ -75,16 +85,15 @@
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <button id="skip" class="btn btn-light p-4"><img src="next_arrow_14440.png" style="width: 30px; height: 30px;"
-        alt="">Skip Question</button>
-    <button id="confirm" class="btn btn-light p-4"><img src="iconfinder-send-4341325_120524.png"
-        style="width: 30px; height: 30px;" alt="">Confirm Answer</button>
+    <button id="skip" class="btn btn-light p-4 mr-2"><img src="next_arrow_14440.png" style="width: 30px; height: 30px;"
+        alt=""> Skip Question</button>
+    <button id="confirm" class="btn btn-light p-4 ml-2"><img src="iconfinder-send-4341325_120524.png"
+        style="width: 30px; height: 30px;" alt=""> Confirm Answer</button>
   </div>
   <div class="container" id="recapList"></div>
   <!-- FOOTER -->
-  <footer class="d-block font-small" style="background-color: #ADDCC9;">
+  <nav class="navbar mt-4" style="background-color: #ADDCC9;">
     <div class="container justify-content-center">
-      <div class="mb-5 d-flex justify-content-center">
         <a class="p-4">
           <img src="FB_icon-icons.com_65484.png" style="width: 30px; height: 30px;" alt="">
         </a>
@@ -94,11 +103,10 @@
         <a class="p-4">
           <img src="google_icon-icons.com_65494 (1).png" style="width: 30px; height: 30px;" alt="">
         </a>
-      </div>
-      <div class="d-block text-center" style="background-color: white; width: 100%;">
-        © 2020 Copyright
-      </div>
-  </footer>
+  </nav>
+  <div class="navbar text-center justify-content-center">
+    © 2020 Copyright
+  </div>
   <!-- JS -->
   <script type="text/javascript" src="./apihome.js"></script>
 </body>
