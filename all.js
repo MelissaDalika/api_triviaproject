@@ -9,9 +9,10 @@ app.get("/home", (req, res) => {
  res.status(200).sendFile (path.join (__dirname, "/views/apihome.html"));
 });
 
-app.get("/userId", (req, res) => {
-  res.status(200).sendFile (path.join (__dirname, "/views/userId.html"));
+app.get("/results", (req, res) => {
+  res.status(200).sendFile (path.join (__dirname, "/views/results.html"));
  });
+
 
 app.listen( 3000, () => console.log('Listening on port 3000'));
 
