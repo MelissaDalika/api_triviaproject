@@ -54,7 +54,7 @@ function createRecapList() {
     "class",
     "list-group list-group-horizontal justify-content-center p-4"
   );
-
+  recapList.style= "flex-wrap: wrap";
   for (let i = 0; i < infoQuestions.questions.length; i++) {
     recapList.innerHTML += `<li class="list-group-item">${i + 1}</li>`;
   }
@@ -64,26 +64,31 @@ function createRecapList() {
 
 //Creazione dei Radio contententi le risposte
 function questionBuilder(questionArr) {
-  infoQuestions.questionText = questionArr[currentQuestion].question;
-  infoQuestions.correctAnswer = questionArr[currentQuestion].correct_answer;
-  infoQuestions.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
-  console.log("questionBuilder sta andando");
-  let possibleAnswers = infoQuestions.wrongAnswers.concat(
-    infoQuestions.correctAnswer
-  );
-  shuffle(possibleAnswers);
+  if (questionArr.length == 0){
+    return alert("Non ci sono abbastanza domande per il Quiz richiesto")
+  }else {
+    infoQuestions.questionText = questionArr[currentQuestion].question;
+    infoQuestions.correctAnswer = questionArr[currentQuestion].correct_answer;
+    infoQuestions.wrongAnswers = questionArr[currentQuestion].incorrect_answers;
+    console.log("questionBuilder sta andando");
+    let possibleAnswers = infoQuestions.wrongAnswers.concat(
+      infoQuestions.correctAnswer
+    );
+    shuffle(possibleAnswers);
 
-  document.getElementById("question").innerHTML = infoQuestions.questionText;
+    document.getElementById("question").innerHTML = infoQuestions.questionText;
 
-  let container = document.getElementById("radiaContainer");
-  container.innerHTML = "";
-  for (let i = 0; i < possibleAnswers.length; i++) {
-    container.innerHTML += `
-    <div class="form-check">
-    <input type="radio" id="answer${i}" class="radioInput" name="triviaAnswers"   value="${possibleAnswers[i]}">
-    <label for="answer${i}" id="answer${i}label">${possibleAnswers[i]}</label>
-    </div>`;
+    let container = document.getElementById("radiaContainer");
+    container.innerHTML = "";
+    for (let i = 0; i < possibleAnswers.length; i++) {
+      container.innerHTML += `
+      <div class="form-check">
+      <input type="radio" id="answer${i}" class="radioInput" name="triviaAnswers"   value="${possibleAnswers[i]}">
+      <label for="answer${i}" id="answer${i}label">${possibleAnswers[i]}</label>
+      </div>`;
+    }
   }
+
 }
 
 // Cerca il Radio selezionato e prendine il valore
