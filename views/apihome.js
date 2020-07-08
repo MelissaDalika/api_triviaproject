@@ -1,7 +1,7 @@
 let currentQuestion = 0;
 let infoQuestions = {};
 let currentPoints = 0;
-let playerName = "banana";
+let playerName;
 
 //Costructor HTML che richiede lista categoria/id all'API e forma le relative opzioni dentro al form con id "category"
 
@@ -136,6 +136,7 @@ function checkIfRight(inputWord) {
     alert(
       `domande finite con punteggio ${currentPoints}. Necessario redirect a pagina esterna o costruzione di elemento html nuovo`
     );
+    postData(playerName, currentPoints);
       window.location.href = `/results.html?result=${currentPoints}`
        
   } else {
@@ -143,6 +144,29 @@ function checkIfRight(inputWord) {
     questionBuilder(infoQuestions.questions);
     console.log(currentPoints);
   }
+}
+
+function postData (playerName, score) {
+  var data = JSON.stringify({
+    "playerName": playerName,
+    "results": score
+  });
+  
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+  
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+      console.log(this.responseText);
+    }
+  });
+  
+  xhr.open("POST", "https://trivialapp-043f.restdb.io/rest/punteggio-giocatori");
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.setRequestHeader("x-apikey", "5f046bd8a529a1752c476e5d");
+  xhr.setRequestHeader("cache-control", "no-cache");
+  
+  xhr.send(data);
 }
 
 // NEXT CHANCE FOR SKIP QUESTION
@@ -174,6 +198,8 @@ document.getElementById("skip").addEventListener("click", () => {
   document.getElementById("formName").classList.toggle('d-none');
   document.getElementById("formName").classList.toggle('d-flex');
   document.getElementById("optionSelection").classList.toggle('d-none');
+  playerName = document.getElementById("inputPassword2").value;
+  console.log(playerName)
 });
 
 //Funzione di shuffle presa online che shuffle non esiste di default in js
