@@ -50,52 +50,65 @@
           alt=""
       /></a>
     </section>
-    <!-- CARD -->
-    <div class="card text-center p-4">
-      <div class="card-header">
-        Results
+    <!-- DIV CONTAINER del centro pagina -->
+    <div class="container d-flex justify-content-around">
+      <!-- TABELLA CLASSIFICA GENERALE -->
+      <table id="tableSx" class="table table-sm table-dark w-auto">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Player</th>
+                    <th scope="col">Best Score</th>
+                  </tr>
+                </thead>
+                <tbody id="tableSxBody">
+                </tbody>
+      </table>
+      <!-- CARD -->
+      <div class="card text-center p-4">
+        <div class="card-header">
+          <b>YOUR RESULTS</b>
+        </div>
+        <div class="card-body">
+          <img src="https://trivialapp-043f.restdb.io/media/5f048609498ad7680006ec06" style="width: 120px; height: 120px;" class="card-img-top" alt="...">
+          <h5 class="card-title">UserName</h5>
+          <p class="card-text">
+            Final Score:
+          </p>
+          <a href="apihome.html" class="btn btn-info">Home</a>
+        </div>
       </div>
-      <div class="card-body">
-        <img src="https://trivialapp-043f.restdb.io/media/5f048609498ad7680006ec06" style="width: 120px; height: 120px;" class="card-img-top" alt="...">
-        <h5 class="card-title">UserName</h5>
-        <p class="card-text">
-          Final Score:
-        </p>
-        <a href="apihome.html" class="btn btn-info">Home</a>
-      </div>
+      <!-- TABELLA CLASSIFICA GENERALE -->
+      <table id="tableDx" class="table table-sm table-dark w-auto">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Player</th>
+          <th scope="col">Best Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="2">Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+      </table>
     </div>
-    <!-- TABELLA CLASSIFICA GENERALE -->
-    <table class="table table-sm table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-
+    <!-- FINE DIV CONTAINER del centro pagina -->
     <nav class="navbar mt-4" style="background-color: #ADDCC9;">
       <div class="container justify-content-center">
           <a class="p-4">
@@ -113,15 +126,45 @@
     </div>
     <!-- -------------------------------------JS----------------------------------------- -->
     <script>
-      let arrayProva2 = [
+      var data = null;
+      
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+      
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          console.log(this.responseText);
+          tableSxBuilder(this.responseText);
+        }
+      });
+      
+      xhr.open("GET", "https://trivialapp-043f.restdb.io/rest/punteggio-giocatori");
+      xhr.setRequestHeader("content-type", "application/json");
+      xhr.setRequestHeader("x-apikey", "5f046bd8a529a1752c476e5d");
+      xhr.setRequestHeader("cache-control", "no-cache");
+      
+      xhr.send(data);    
+    
+      let arrayProva = [
       {"_id":"5f04791a498ad7680006e2f2","playerName":"Ciccio","results":10},
       {"_id":"5f047935498ad7680006e2f8","playerName":"Banano","results":50},
       {"_id":"5f048286498ad7680006eba1","playerName":"Giangiulioberto","results":99},
       {"_id":"5f047fb2498ad7680006e947","playerName":"Giangiulioberto","results":99}];
-      //let arrayProva2 = JSON.parse(arrayProva)
+
       let num = (arrayProva2.length-1);
       document.getElementsByClassName("card-title")[0].innerText = arrayProva2[num].playerName;
       document.getElementsByClassName("card-text")[0].innerText = `Il tuo punteggio è stato ${arrayProva2[num].results}`;
+
+      function tableSxBuilder(arr) {
+        for (let i=0; i < arr.length; i++) {
+          document.getElementById("tableSxBody").innerHTML += 
+                  `<tr>
+                    <th scope="row">${i+1}</th>
+                    <td>${arr[i].playerName}</td>
+                    <td>${arr[i].results}</td>
+                  </tr>`
+        }
+      }
     </script>
   </body>
 </html>
