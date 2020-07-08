@@ -149,11 +149,19 @@ document.getElementById("confirm").addEventListener("click", () => {
 
 document
   .getElementById("urlComposer")
-  .addEventListener("click", () => urlComposer());
+  .addEventListener("click", () => {
+    document.getElementById("optionSelection").classList.toggle('d-none');
+    urlComposer()
+  });
 
 //Bottone salta domanda
 document.getElementById("skip").addEventListener("click", () => {
   checkIfRight("skip");
+});
+//Bottone invio nome
+document.getElementById("ConfirmName").addEventListener("click", () => {
+  document.getElementById("formName").classList.toggle('d-none');
+  document.getElementById("optionSelection").classList.toggle('d-none');
 });
 
 //Funzione di shuffle presa online che shuffle non esiste di default in js
