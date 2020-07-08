@@ -1,6 +1,7 @@
 let currentQuestion = 0;
 let infoQuestions = {};
 let currentPoints = 0;
+let playerName = "banana";
 
 //Costructor HTML che richiede lista categoria/id all'API e forma le relative opzioni dentro al form con id "category"
 
@@ -184,16 +185,3 @@ function shuffle(arra1) {
   return arra1;
 }
 
-/* function checkNextQuestion (){
-  for(let i=0; i<4; i++){
-    console.log(document.getElementById(`answer${i}`).checked);
-    if(document.getElementById(`answer${i}`).checked){
-      console.log(document.getElementById(`answer${i}`).innerText);
-      if(document.getElementById(`answer${i}`).innerHTML == infoQuestions.correctAnswer){
-        console.log(infoQuestions.correctAnswer);
-        document.getElementById("result").innerText = "True"
-      }
-      break;
-    }
-  }
-} */
