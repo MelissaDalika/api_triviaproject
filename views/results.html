@@ -28,14 +28,68 @@
     ></script>
     <!-- AXIOS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Notable&display=swap" rel="stylesheet">
+    <!-- STYLE -->
+    <style>
+      body{height: 100vh;}
+      .btn-danger {
+      background-color: #e77471 !important;
+      border-color: #e77471 !important;}
+      .btn-light {
+      color: #212529;
+      background-color: #e0e0e0 !important;
+      border-color: #e0e0e0 !important;}
+      .titleText {
+        font-family: 'Notable', sans-serif;
+        font-size: 4rem;
+        color:blueviolet;
+        text-shadow: 2px 2px darkblue;}
+      .logoWrapper {
+        position: relative;
+      }
+      .logoImage {
+        position: absolute;
+        top: 12px;
+        width: 100px;
+        height: 100px;
+        z-index: +1;
+      }
+      .blob {
+        background: yellow;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+
+        box-shadow: 0 0 0 0 rgba(255, 255, 51, 1);
+        transform: scale(1);
+        animation: pulse 2s infinite;}
+        @keyframes pulse {
+          0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(86, 47, 126, 0.7);
+          }
+
+          70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(255, 255, 51, 0);
+          }
+
+          100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 255, 51, 0);
+          }
+        }
+
+    </style>
   </head>
-  <body>
+  <body class="d-flex flex-column">
     <nav class="navbar d-flex justify-content-center p-2" style="background-color: #ADDCC9;">
-      <a class="navbar-brand" href="#"><img src="https://trivialapp-043f.restdb.io/media/5f05b87f498ad768000714bb" style="width: 100px; height: 100px;" alt="" /></a>
+        <a class="navbar-brand mx-4 titleText " href="#">BRAIN <span class="logoWrapper"><img class="logoImage" src="../assets/brainlogoWhiteMutated.svg"/><svg class="blob" height="100" width="100"><circle cx="50" cy="50" r="51" stroke="violet" stroke-width="5" fill="yellow" /></svg></span></span> ZAP!!</a>
     </nav>
 
     <!-- DIV CONTAINER del centro pagina -->
-    <div class="container flex-wrap d-flex justify-content-around">
+    <div class="container flex-wrap d-flex justify-content-around flex-grow-1">
       <!-- TABELLA CLASSIFICA GENERALE -->
       <table id="tableSx" class="table table-sm table-dark w-auto">
                 <thead>
