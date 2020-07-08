@@ -65,7 +65,13 @@ function createRecapList() {
 //Creazione dei Radio contententi le risposte
 function questionBuilder(questionArr) {
   if (questionArr.length == 0){
-    return alert("Non ci sono abbastanza domande per il Quiz richiesto")
+    alert("Non ci sono abbastanza domande per il Quiz richiesto");
+    document.getElementById("optionSelection").classList.toggle('d-none');
+    document.getElementById("radiaWrapper").classList.toggle('d-none');
+    document.getElementById("buttonWrapper").classList.toggle('d-none');
+    document.getElementById("buttonWrapper").classList.toggle('d-flex');
+    return
+
   }else {
     infoQuestions.questionText = questionArr[currentQuestion].question;
     infoQuestions.correctAnswer = questionArr[currentQuestion].correct_answer;
@@ -118,12 +124,12 @@ function checkIfRight(inputWord) {
 
   if (inputWord == infoQuestions.correctAnswer) {
     currentPoints += 2;
-    selectedRecapListCell.setAttribute("style", "background-color: green;");
+    selectedRecapListCell.setAttribute("style", "background-color: #43BC77;");
   } else if (inputWord == "skip") {
-    selectedRecapListCell.setAttribute("style", "background-color: yellow;");
+    selectedRecapListCell.setAttribute("style", "background-color: #ffef5a;");
   } else {
     currentPoints--;
-    selectedRecapListCell.setAttribute("style", "background-color: red;");
+    selectedRecapListCell.setAttribute("style", "background-color: #ff3333;");
   }
 
   if (currentQuestion == infoQuestions.questions.length - 1) {
@@ -148,10 +154,14 @@ document.getElementById("confirm").addEventListener("click", () => {
   checkIfRight(getRadioVal());
 });
 
+//Get Started
 document
   .getElementById("urlComposer")
   .addEventListener("click", () => {
     document.getElementById("optionSelection").classList.toggle('d-none');
+    document.getElementById("radiaWrapper").classList.toggle('d-none');
+    document.getElementById("buttonWrapper").classList.toggle('d-none');
+    document.getElementById("buttonWrapper").classList.toggle('d-flex');
     urlComposer()
   });
 
@@ -160,8 +170,9 @@ document.getElementById("skip").addEventListener("click", () => {
   checkIfRight("skip");
 });
 //Bottone invio nome
-document.getElementById("ConfirmName").addEventListener("click", () => {
+  document.getElementById("ConfirmName").addEventListener("click", () => {
   document.getElementById("formName").classList.toggle('d-none');
+  document.getElementById("formName").classList.toggle('d-flex');
   document.getElementById("optionSelection").classList.toggle('d-none');
 });
 

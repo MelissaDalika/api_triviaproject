@@ -19,24 +19,42 @@
   </script>
   <!-- AXIOS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <!-- STYLE -->
+  <style>
+    body{height: 100vh;}
+    .btn-danger {
+    background-color: #e77471 !important;
+    border-color: #e77471 !important;}
+    .btn-light {
+    color: #212529;
+    background-color: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
+}
+  </style>
 </head>
 
-<body>
+<body class="d-flex flex-column">
   <nav class="navbar d-flex justify-content-center p-2" style="background-color: #ADDCC9;">
     <a class="navbar-brand" href="#"><img src="https://trivialapp-043f.restdb.io/media/5f05b87f498ad768000714bb" style="width: 100px; height: 100px;" alt="" /></a>
   </nav>
+  <!-- PROVE AUDIO -->
+  <audio src="../assets/Q13.ogg" autostart="true" hidden="true">
+    <p>If you are reading this, it is because your browser does not support the audio element.</p>
+    </audio>
   <!-- FORM INSERIMENTO NOME -->
-  <div class="justify-content-center mx-1" id="formName">
+  <div class="d-flex justify-content-center mx-1 mt-4 flex-grow-1" id="formName">
     <form class="form-inline">
       <div class="form-group mx-sm-3 mb-2">
         <label for="inputPassword2" >Enter Name</label>
-        <input type="text" class="form-control" id="inputPassword2">
+        <input type="text" class="form-control ml-2" id="inputPassword2">
       </div>
-      <button type="button" class="btn btn-danger h-50 mb-2 align-self-end px-5" id="ConfirmName">Get STARTED!</button>
+      <div>
+        <button type="button" class="btn btn-danger h-10 mb-2 align-self-end px-5" id="ConfirmName">A Jugar</button>
+      </div>
     </form>
   </div>
   <!-- MENU OPZIONI -->
-  <div class="form-group row justify-content-center d-none mx-1" id="optionSelection">
+  <div class="form-group row justify-content-center d-none mx-1 flex-grow-1" id="optionSelection">
     <div class="p-2">
       <label for="questionsNbr" class="control-label">Number of Trivia questions</label>
       <select class="form-control" name="questionsNbr" id="questionsNbr">
@@ -69,21 +87,23 @@
         <option value="boolean">True/False</option>
       </select>
     </div>
-    <button type="button" class="btn btn-danger h-50 mb-2 align-self-end px-5" id="urlComposer">Get STARTED!</button>
+    <div class="mt-3">
+      <button type="button" class="btn btn-danger h-10 mt-4 align-self-end px-5" id="urlComposer">Get STARTED!</button>
+    </div>
   </div>
 
   <!-- RADIA con le risposte possibili -->
-  <div class="container d-flex-column justify-content-center align-items-center p-4">
+  <div class="container d-none flex-column flex-grow-1 justify-content-center align-items-center p-4" id="radiaWrapper">
     <div class="card-body text-center">
       <h3 id="question" class="card-title text-center"></h3>
       <div id="radiaContainer">
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center">
-    <button id="skip" class="btn btn-light position-absolute p-4 mr-2"><img src="https://trivialapp-043f.restdb.io/media/5f05b608498ad7680007143c" style="width: 30px; height: 30px;"
+  <div class="d-none justify-content-center" id="buttonWrapper">
+    <button id="skip" class="btn btn-light p-4 mr-2"><img src="https://trivialapp-043f.restdb.io/media/5f05b608498ad7680007143c" style="width: 30px; height: 30px;"
         alt=""> Skip Question</button>
-    <button id="confirm" class="btn btn-light position-absolute p-4 ml-2"><img src="https://trivialapp-043f.restdb.io/media/5f05b609498ad76800071441"
+    <button id="confirm" class="btn btn-light p-4 ml-2"><img src="https://trivialapp-043f.restdb.io/media/5f05b609498ad76800071441"
         style="width: 30px; height: 30px;" alt=""> Confirm Answer</button>
   </div>
   <div class="container" id="recapList"></div>
