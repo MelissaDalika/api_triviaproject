@@ -40,17 +40,25 @@
       color: #212529;
       background-color: #e0e0e0 !important;
       border-color: #e0e0e0 !important;}
+      .navTop {
+        box-shadow: 0px 0px 2px 1px rgba(0,0,100,0.75);
+        background-color: #ADDCC9;
+      }
+      .navBottom {
+        box-shadow: 0px 0px 2px 1px rgba(0,0,100,0.75);
+        background-color: #ADDCC9;
+      }
       .titleText {
         font-family: 'Notable', sans-serif;
         font-size: 4rem;
         color:blueviolet;
-        text-shadow: 2px 2px darkblue;}
+        text-shadow: 2px 2px  darkblue ;}
       .logoWrapper {
         position: relative;
       }
       .logoImage {
         position: absolute;
-        top: 12px;
+        left: 24px;
         width: 100px;
         height: 100px;
         z-index: +1;
@@ -80,18 +88,37 @@
             box-shadow: 0 0 0 0 rgba(255, 255, 51, 0);
           }
         }
-
+      .centerContainer{
+        margin-top: 3rem;
+      }
+      .theadCustom {
+        background-color: darkorchid !important;
+        color: white;
+      }
+      .socialIcon {
+        width: 35px;
+        height: 35px;
+      }
     </style>
   </head>
   <body class="d-flex flex-column">
-    <nav class="navbar d-flex justify-content-center p-2" style="background-color: #ADDCC9;">
-        <a class="navbar-brand mx-4 titleText " href="#">BRAIN <span class="logoWrapper"><img class="logoImage" src="../assets/brainlogoWhiteMutated.svg"/><svg class="blob" height="100" width="100"><circle cx="50" cy="50" r="51" stroke="violet" stroke-width="5" fill="yellow" /></svg></span></span> ZAP!!</a>
-    </nav>
+    <!-- HEADER -->
+    <div class="container-fluid navTop d-flex flex-wrap justify-content-center py-2">
+      <span><a class="titleText navbar-brand " href="#">BRAIN</a></span>
+      <span class="logoWrapper"><img class="logoImage" src="../assets/brainlogoWhiteMutated.svg"/><svg class="blob mx-4" height="100" width="100"><circle cx="50" cy="50" r="51" stroke="violet" stroke-width="5" fill="yellow" /></svg></span>
+      <span><a class="titleText navbar-brand" href="#" onclick="playAudio('../assets/zap.wav')">ZAP!!</a></span>
+    </div>
+
+<!--     <nav class="navTop navbar d-flex flex-wrap justify-content-center p-2">
+        <a class="navbar-brand mx-4 titleText" href="#">BRAIN <span class="logoWrapper"><img class="logoImage" src="../assets/brainlogoWhiteMutated.svg"/><svg class="blob" height="100" width="100"><circle cx="50" cy="50" r="51" stroke="violet" stroke-width="5" fill="yellow" /></svg></span></span> ZAP!!</a>
+    </nav> -->
 
     <!-- DIV CONTAINER del centro pagina -->
-    <div class="container flex-wrap d-flex justify-content-around flex-grow-1">
+    <div class="container centerContainer flex-grow-1">
+      <div class="row">
       <!-- TABELLA CLASSIFICA GENERALE -->
-      <table id="tableSx" class="table table-sm table-dark w-auto">
+      <div class="col-sm-4">
+        <table id="tableSx" class="table table-sm table-dark w-auto">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -101,63 +128,66 @@
                 </thead>
                 <tbody id="tableSxBody">
                 </tbody>
-      </table>
+        </table>
+      </div>
       <!-- CARD -->
-      <div class="card text-center p-4">
-        <div class="card-header">
-          <b>YOUR RESULTS</b>
-        </div>
-        <div class="card-body">
-          <img src="https://trivialapp-043f.restdb.io/media/5f05b609498ad76800071440" style="width: 120px; height: 120px;" class="card-img-top" alt="...">
-          <h5 class="card-title">UserName</h5>
-          <p class="card-text">
-            Final Score:
-          </p>
-          <a href="apihome.html" class="btn btn-info">Home</a>
+      <div class="col-sm-4">
+        <div class="cardCenter card text-center p-4">
+          <div class="card-header">
+            <b>YOUR RESULTS</b>
+          </div>
+          <div class="card-body">
+            <img src="https://trivialapp-043f.restdb.io/media/5f05b609498ad76800071440" style="width: 120px; height: 120px;" class="card-img-top" alt="...">
+            <h5 class="card-title">UserName</h5>
+            <p class="card-text">
+              Final Score:
+            </p>
+            <a href="apihome.html" class="btn btn-info">Home</a>
+          </div>
         </div>
       </div>
       <!-- TABELLA CLASSIFICA GENERALE -->
-      <table id="tableDx" class="table table-sm table-dark w-auto">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Player</th>
-          <th scope="col">Best Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-      </table>
+      <div class="col-sm-4">
+        <table id="tableDx" class="table table-sm table-bordered w-auto">
+        <thead class="theadCustom">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Player</th>
+            <th scope="col">Best Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
     </div>
     <!-- FINE DIV CONTAINER del centro pagina -->
   <!-- FOOTER -->
-  <nav class="navbar mt-4" style="background-color: #ADDCC9;">
+  <nav class="navBottom navbar mt-4">
     <div class="container justify-content-center">
         <a class="p-4">
-          <img src="https://trivialapp-043f.restdb.io/media/5f05e51f498ad768000718f3" style="width: 30px; height: 30px;" alt="">
+          <img class="socialIcon" src="https://trivialapp-043f.restdb.io/media/5f064e89498ad76800073042" alt="">
         </a>
         <a class="p-4">
-          <img src="https://trivialapp-043f.restdb.io/media/5f05e51c498ad768000718f2" style="width: 30px; height: 30px;" alt="">
+          <img class="socialIcon" src="https://trivialapp-043f.restdb.io/media/5f064e45498ad76800073039" alt="">
         </a>
         <a class="p-4">
-          <img src="https://trivialapp-043f.restdb.io/media/5f05e51a498ad768000718f0" style="width: 30px; height: 30px;" alt="">
+          <img class="socialIcon"src="https://trivialapp-043f.restdb.io/media/5f064e44498ad76800073038" alt="">
         </a>
   </nav>
   <div class="navbar text-center justify-content-center">

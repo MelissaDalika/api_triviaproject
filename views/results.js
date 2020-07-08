@@ -1,3 +1,8 @@
+//FUNZIONE AUDIO
+function playAudio(url) {
+  new Audio(url).play();
+}
+
 
 //RICHIESTA DI TIPO GET AL DATABASE
   var data = null;
