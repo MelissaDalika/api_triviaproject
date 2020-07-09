@@ -3,6 +3,7 @@ let track
 function playAudio(url) {
   track = new Audio(url);
   track.play();
+  track.volume = .5;
   if (url == "https://trivialapp-043f.restdb.io/media/5f06d804498ad76800073f5a"){} else {
   document.getElementById("audioIcon").classList.toggle('audioIconOn');
   sound = true;}
@@ -201,6 +202,13 @@ function postData (playerName, score, ranked) {
 // NEXT CHANCE FOR SKIP QUESTION
 let chanceForSkipQuestion = () => {};
 
+//FUNZIONE BENVENUTO
+function welcomePlayerName (){
+  let welcome = document.createElement('h3')
+  welcome.innerText = `Welcome ${playerName}`;
+  document.getElementById("welcomePlayer").appendChild(welcome);
+}
+
 //Event Listener BOTTONI
 
 //Bottone Controllo Audio
@@ -233,6 +241,7 @@ document.getElementById("skip").addEventListener("click", () => {
     document.getElementById("optionSelection").classList.toggle('d-none');
     controlInputName ()
     console.log(playerName)
+    welcomePlayerName();
 });
 //Bottone invio nome Ranked
   document.getElementById("ConfirmNameRanked").addEventListener("click", ()=>{
@@ -245,7 +254,7 @@ document.getElementById("skip").addEventListener("click", () => {
     ranked= true;
     let composedUrl = `https://opentdb.com/api.php?amount=10&difficulty=hard`;
     apiRequest(composedUrl);
-
+    welcomePlayerName();
   })
 
 //Controllo input nome
