@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Notable&display=swap" rel="stylesheet">
   <!-- STYLE -->
   <style>
-    body{height: 100vh;}
+    body{min-height: 100vh;}
     .btn-danger {
     background-color: #e77471 !important;
     border-color: #e77471 !important;}
@@ -91,26 +91,51 @@
         min-height: 75px;
       }
       #radiaWrapper {
-        min-height: 255px;
+        min-height: 280px;
+      }
+      .btnCustom {
+        min-width: 198px;
       }
       .socialIcon {
         width: 35px;
         height: 35px;
       }
+      .audioIconWrapper {
+        position: relative;
+      }
+      .audioIconOn {
+        position:absolute;
+        right: 5vw;
+        top: 1rem;
+        width: 30px;
+        height: 30px;
+        background-image: url('https://trivialapp-043f.restdb.io/media/5f072163498ad76800074de1');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px, 30px;
+      }
+      .audioIconOff {
+        position:absolute;
+        right: 5vw;
+        top: 1rem;
+        width: 30px;
+        height: 30px;
+        background-image: url('https://trivialapp-043f.restdb.io/media/5f072160498ad76800074de0');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px, 30px;
+      }
   </style>
 </head>
-
 <body class="d-flex flex-column">
     <!-- HEADER -->
     <div class="container-fluid navTop d-flex flex-wrap justify-content-center py-2">
       <span><a class="titleText navbar-brand " href="#">BRAIN</a></span>
       <span class="logoWrapper"><img class="logoImage" src="https://trivialapp-043f.restdb.io/media/5f06d74e498ad76800073f25"/><svg class="blob mx-4" height="100" width="100"><circle cx="50" cy="50" r="51" stroke="violet" stroke-width="5" fill="yellow" /></svg></span>
-      <span><a class="titleText navbar-brand" href="#" onclick="playAudio('../assets/zap.wav')">ZAP!!</a></span>
+      <span><a class="titleText navbar-brand" href="#" onclick="playAudio('https://trivialapp-043f.restdb.io/media/5f06d804498ad76800073f5a')">ZAP!!</a></span>
     </div>
-  <!-- PROVE AUDIO -->
-  <audio src="../assets/Q13.ogg" autostart="true" hidden="true">
-    <p>If you are reading this, it is because your browser does not support the audio element.</p>
-    </audio>
+  <!-- AUDIO CONTROLS -->
+  <div id="audioControls" class="audioIconWrapper"><span id="audioIcon" class=""></span></div>
   <!-- FORM INSERIMENTO NOME -->
   <div class="d-flex justify-content-center mx-1 mt-4 flex-grow-1" id="formName">
     <form class="form-inline">
@@ -119,8 +144,8 @@
         <input maxlength="10" minlength="1" type="text" class="form-control ml-2" id="inputPassword2">
       </div>
       <div>
-        <button type="button" class="btn btn-danger h-10 mb-2 align-self-end px-5" id="ConfirmName">A Jugar</button>
-        <button type="button" class="btn btn-danger h-10 mb-2 align-self-end px-5" id="ConfirmNameRanked">Ranked</button>
+        <button type="button" class="btn btn-danger h-10 mb-2 align-self-end px-5" id="ConfirmName">A Jugar¡!</button>
+        <button type="button" class="btn btn-danger h-10 mb-2 align-self-end px-5" id="ConfirmNameRanked">Ranked Play</button>
       </div>
     </form>
   </div>
@@ -171,14 +196,14 @@
       </div>
     </div>
   </div>
-  <div class="d-none justify-content-center" id="buttonWrapper">
-    <button id="skip" class="btn btn-light p-4 mr-2"><img src="https://trivialapp-043f.restdb.io/media/5f05b608498ad7680007143c" style="width: 30px; height: 30px;"
+  <div class="d-none flex-wrap justify-content-center" id="buttonWrapper">
+    <button id="skip" class="btnCustom btn btn-light p-4 mr-sm-2 mt-1"><img src="https://trivialapp-043f.restdb.io/media/5f05b608498ad7680007143c" style="width: 30px; height: 30px;"
         alt=""> Skip Question</button>
-    <button id="confirm" class="btn btn-light p-4 ml-2"><img src="https://trivialapp-043f.restdb.io/media/5f05b609498ad76800071441"
+    <button id="confirm" class="btnCustom btn btn-light p-4 ml-sm-2 mt-1"><img src="https://trivialapp-043f.restdb.io/media/5f05b609498ad76800071441"
         style="width: 30px; height: 30px;" alt=""> Confirm Answer</button>
   </div>
   <div class="container" id="recapList"></div>
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <nav class="navBottom navbar mt-4">
     <div class="container justify-content-center">
         <a class="p-4">

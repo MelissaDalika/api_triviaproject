@@ -1,14 +1,32 @@
 //FUNZIONE AUDIO
+let track
 function playAudio(url) {
-  new Audio(url).play();
+  track = new Audio(url);
+  track.play();
+  if (url == "https://trivialapp-043f.restdb.io/media/5f06d804498ad76800073f5a"){} else {
+  document.getElementById("audioIcon").classList.toggle('audioIconOn');
+  sound = true;}
 }
 
 let currentQuestion = 0;
-let infoQuestions = {};
+let infoQuestions = {}; //raccoglitore di variabili e dati vari
 let currentPoints = 0;
 let playerName;
-let ranked=false;
+let ranked = false;
+let sound = false;
 
+//CONTROLLI AUDIO
+function audioControls() {
+    if (sound) {
+      track.pause();
+      sound = false;
+      document.getElementById("audioIcon").classList.replace('audioIconOn', 'audioIconOff');
+    } else {
+      track.play();
+      sound = true;
+      document.getElementById("audioIcon").classList.replace('audioIconOff', 'audioIconOn');
+    }
+  }
 //Costructor HTML che richiede lista categoria/id all'API e forma le relative opzioni dentro al form con id "category"
 
 function getCategoryOptions() {
@@ -27,6 +45,7 @@ function buildCategoryOptions(dataArr) {
   for (let i = 0; i < dataArr.length; i++) {
     data.innerHTML += `<option value=${dataArr[i].id}>${dataArr[i].name}</option>`;
   }
+
 }
 
 //Chiamata della funzione per le opzioni
@@ -42,12 +61,13 @@ function urlComposer() {
   apiRequest(composedUrl);
 }
 
-//Chiamata all'API con ricezione delle domande
+//Chiamata all'API con ricezione delle domande e play audio
 function apiRequest(url) {
   axios.get(url).then((response) => {
     infoQuestions.questions = response.data.results;
     questionBuilder(infoQuestions.questions);
     createRecapList();
+    playAudio("https://trivialapp-043f.restdb.io/media/5f072f98498ad76800074f52");
   });
 }
 
@@ -153,6 +173,7 @@ function checkIfRight(inputWord) {
   }
 }
 
+//Chiamata POST al database
 function postData (playerName, score, ranked) {
   var data = JSON.stringify({
     "playerName": playerName,
@@ -181,12 +202,16 @@ function postData (playerName, score, ranked) {
 let chanceForSkipQuestion = () => {};
 
 //Event Listener BOTTONI
+
+//Bottone Controllo Audio
+document.getElementById("audioControls").addEventListener("click", () => audioControls());
+
 //Bottone conferma risposta
 document.getElementById("confirm").addEventListener("click", () => {
   checkIfRight(getRadioVal());
 });
 
-//Get Started
+//Bottone Get Started
 document
   .getElementById("urlComposer")
   .addEventListener("click", () => {
@@ -203,11 +228,11 @@ document.getElementById("skip").addEventListener("click", () => {
 });
 //Bottone invio nome
   document.getElementById("ConfirmName").addEventListener("click", () => {
-  document.getElementById("formName").classList.toggle('d-none');
-  document.getElementById("formName").classList.toggle('d-flex');
-  document.getElementById("optionSelection").classList.toggle('d-none');
-  controlInputName ()
-  console.log(playerName)
+    document.getElementById("formName").classList.toggle('d-none');
+    document.getElementById("formName").classList.toggle('d-flex');
+    document.getElementById("optionSelection").classList.toggle('d-none');
+    controlInputName ()
+    console.log(playerName)
 });
 //Bottone invio nome Ranked
   document.getElementById("ConfirmNameRanked").addEventListener("click", ()=>{
