@@ -198,9 +198,22 @@ document.getElementById("skip").addEventListener("click", () => {
   document.getElementById("formName").classList.toggle('d-none');
   document.getElementById("formName").classList.toggle('d-flex');
   document.getElementById("optionSelection").classList.toggle('d-none');
-  playerName = document.getElementById("inputPassword2").value;
+  controlInputName ()
   console.log(playerName)
 });
+
+//Controllo input nome
+
+function controlInputName (){
+    let input = document.getElementById("inputPassword2").value;
+    if (!input.replace(/\s/g, '').length) {
+      alert('not valid name, replaced with anonymous');
+      playerName = "anonymous";
+    } else {
+      playerName = input;
+    }  
+}
+
 
 //Funzione di shuffle presa online che shuffle non esiste di default in js
 function shuffle(arra1) {
