@@ -1,12 +1,22 @@
-//FUNZIONE AUDIO
+//EASTER EGG ZAP
+function playAudioZap() {
+  let trackZap = new Audio("https://trivialapp-043f.restdb.io/media/5f06d804498ad76800073f5a");
+  trackZap.play();
+}
+
+//COLONNA SONORA
 let track
-function playAudio(url) {
-  track = new Audio(url);
+function playAudio() {
+  track = new Audio("https://trivialapp-043f.restdb.io/media/5f0733c1498ad76800074feb");
   track.play();
-  track.volume = .5;
-  if (url == "https://trivialapp-043f.restdb.io/media/5f06d804498ad76800073f5a"){} else {
-  document.getElementById("audioIcon").classList.toggle('audioIconOn');
-  sound = true;}
+  track.volume = .2;
+  setTimeout(() =>{
+    track = new Audio("https://trivialapp-043f.restdb.io/media/5f072f98498ad76800074f52");
+    track.play();
+    track.volume = .2;
+    document.getElementById("audioIcon").classList.toggle('audioIconOn');
+    sound = true;
+    }, 3000);
 }
 
 let currentQuestion = 0;
@@ -68,7 +78,7 @@ function apiRequest(url) {
     infoQuestions.questions = response.data.results;
     questionBuilder(infoQuestions.questions);
     createRecapList();
-    playAudio("https://trivialapp-043f.restdb.io/media/5f072f98498ad76800074f52");
+    playAudio();
   });
 }
 
