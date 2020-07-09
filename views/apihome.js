@@ -1,7 +1,13 @@
+//FUNZIONE AUDIO
+function playAudio(url) {
+  new Audio(url).play();
+}
+
 let currentQuestion = 0;
 let infoQuestions = {};
 let currentPoints = 0;
 let playerName;
+let ranked=false;
 
 //Costructor HTML che richiede lista categoria/id all'API e forma le relative opzioni dentro al form con id "category"
 
@@ -136,8 +142,9 @@ function checkIfRight(inputWord) {
     alert(
       `domande finite con punteggio ${currentPoints}. Necessario redirect a pagina esterna o costruzione di elemento html nuovo`
     );
-    postData(playerName, currentPoints);
-      window.location.href = `/results.html?result=${currentPoints}`
+
+    postData(playerName, currentPoints, ranked);
+    //window.location.href = `/results.html?result=${currentPoints}`
        
   } else {
     currentQuestion++;
@@ -146,10 +153,11 @@ function checkIfRight(inputWord) {
   }
 }
 
-function postData (playerName, score) {
+function postData (playerName, score, ranked) {
   var data = JSON.stringify({
     "playerName": playerName,
-    "results": score
+    "results": score,
+    "ranked": ranked
   });
   
   var xhr = new XMLHttpRequest();
@@ -201,6 +209,19 @@ document.getElementById("skip").addEventListener("click", () => {
   controlInputName ()
   console.log(playerName)
 });
+//Bottone invio nome Ranked
+  document.getElementById("ConfirmNameRanked").addEventListener("click", ()=>{
+    document.getElementById("formName").classList.toggle('d-none');
+    document.getElementById("formName").classList.toggle('d-flex');
+    document.getElementById("radiaWrapper").classList.toggle('d-none');
+    document.getElementById("buttonWrapper").classList.toggle('d-none');
+    document.getElementById("buttonWrapper").classList.toggle('d-flex');
+    controlInputName()
+    ranked= true;
+    let composedUrl = `https://opentdb.com/api.php?amount=10&difficulty=hard`;
+    apiRequest(composedUrl);
+
+  })
 
 //Controllo input nome
 

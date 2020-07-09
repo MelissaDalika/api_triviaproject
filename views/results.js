@@ -34,7 +34,8 @@ function playAudio(url) {
   {"_id":"5f047fb2498ad7680006e947","playerName":"Giangiulioberto","results":99}];
     
     function cardCenterBuilder(arr) {
-      let num = (arr.length-1);
+      arr_id = arr.map(element => element.ID);
+      let num = arr_id.indexOf(Math.max(...arr_id));
       document.getElementsByClassName("card-title")[0].innerText = arr[num].playerName;
       document.getElementsByClassName("card-text")[0].innerText = `Il tuo punteggio è stato ${arr[num].results}`;
     }
