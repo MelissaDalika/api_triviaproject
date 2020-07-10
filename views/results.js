@@ -15,7 +15,7 @@ function getPlayerData() {
     if (this.readyState === 4) {
       let arrData = JSON.parse(this.responseText);
       console.log(arrData);
-      cardCenterBuilder(arrData);
+      cardsBuilder(arrData);
     }
   });
   
@@ -51,27 +51,29 @@ xhr.send(data);
 
 
 //FUNZIONI CHE USANO LA RICHIESTA GET AL DATABASE  
-      function cardCenterBuilder(arr) {
-        arr_id = arr.map(element => element.ID);
-        let num = arr_id.indexOf(Math.max(...arr_id));
-        document.getElementsByClassName("card-title")[0].innerText = arr[num].playerName;
-        document.getElementsByClassName("card-text")[0].innerText = `Il tuo punteggio è stato ${arr[num].results}`;
-      }
+function cardsBuilder(arr) {
+  arr_id = arr.map(element => element.ID);
+  let num = arr_id.indexOf(Math.max(...arr_id));
+  document.getElementsByClassName("card-title")[0].innerText = arr[num].playerName;
+  document.getElementsByClassName("card-text")[0].innerText = `Your final score is ${arr[num].results}`;
+  document.getElementById("finalScoreTimer").innerText = `Final Time: ${arr[num].gameTime}`;
+}
 
-    function tableSxBuilder(arr) {
-      let stopNumber = arr.length -1
-        for (let i=0; i < 10; i++) {
-          if ( stopNumber == i) {
-            break
-          }
-          document.getElementById("tableSxBody").innerHTML += 
-                  `<tr>
-                    <th scope="row">${i+1}</th>
-                    <td>${arr[i].playerName}</td>
-                    <td>${arr[i].results}</td>
-                  </tr>`
-        }
+function tableSxBuilder(arr) {
+  let stopNumber = arr.length -1
+  for (let i=0; i < 10; i++) {
+    if ( stopNumber == i) {
+      break
     }
+    document.getElementById("tableSxBody").innerHTML += 
+            `<tr>
+              <th scope="row">${i+1}</th>
+              <td>${arr[i].playerName}</td>
+              <td>${arr[i].results}</td>
+            </tr>`
+  }
+}
 
-  getPlayerData();
-  getRankedScores();
+
+getPlayerData();
+getRankedScores();

@@ -225,7 +225,7 @@ function checkIfRight(inputWord) {
     );
     Cookies.set("player", playerName)
     postData(playerName, currentPoints, ranked, gameTime);
-   /*  window.location.href = `https://trivialapp-043f.restdb.io/views/results` */
+    window.location.href = `https://trivialapp-043f.restdb.io/views/results`
        
   } else {
     currentQuestion++;
@@ -279,6 +279,7 @@ function postData (playerName, score, ranked, gameTime) {
   xhr.send(data);
 }
  */
+
 // NEXT CHANCE FOR SKIP QUESTION
 let chanceForSkipQuestion = () => {};
 
