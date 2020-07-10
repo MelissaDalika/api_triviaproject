@@ -26,6 +26,22 @@ let playerName;
 let ranked = false;
 let sound = false;
 
+// Controlla se sono presenti cookies con il nome in input prima del caricamento della pagina
+function controlCookie (){
+  if (Cookies.get("player")=== undefined){
+    document.getElementById("inputPassword2").classList.toggle('d-none');
+    document.getElementById("labelinput").classList.toggle('d-none');
+    console.log("Non ho i cookies");
+  }else{
+    playerName = Cookies.get("player");
+    welcomePlayerName(playerName);
+    console.log("Ho i cookies")
+
+  }
+}
+controlCookie()
+
+
 //CONTROLLI AUDIO
 function audioControls() {
     if (sound) {
@@ -77,6 +93,7 @@ function apiRequest(url) {
   axios.get(url).then((response) => {
     infoQuestions.questions = response.data.results;
     questionBuilder(infoQuestions.questions);
+    console.log(response)
     createRecapList();
     playAudio();
   });
@@ -173,9 +190,9 @@ function checkIfRight(inputWord) {
     alert(
       `domande finite con punteggio ${currentPoints}. Necessario redirect a pagina esterna o costruzione di elemento html nuovo`
     );
-
+    Cookies.set("player", playerName)
     postData(playerName, currentPoints, ranked);
-    //window.location.href = `/results.html?result=${currentPoints}`
+    window.location.href = `/results.html?result=${currentPoints}`
        
   } else {
     currentQuestion++;
@@ -213,10 +230,9 @@ function postData (playerName, score, ranked) {
 let chanceForSkipQuestion = () => {};
 
 //FUNZIONE BENVENUTO
-function welcomePlayerName (){
-  let welcome = document.createElement('h3')
-  welcome.innerText = `Welcome ${playerName}`;
-  document.getElementById("welcomePlayer").appendChild(welcome);
+function welcomePlayerName (name){
+  let welcome = `Welcome ${name}`;
+  document.getElementById("welcomePlayer").innerHTML = `<h3> ${welcome}</h3>`;
 }
 
 //Event Listener BOTTONI
@@ -251,7 +267,7 @@ document.getElementById("skip").addEventListener("click", () => {
     document.getElementById("optionSelection").classList.toggle('d-none');
     controlInputName ()
     console.log(playerName)
-    welcomePlayerName();
+    WelcomePlayer(playerName);
 });
 //Bottone invio nome Ranked
   document.getElementById("ConfirmNameRanked").addEventListener("click", ()=>{
@@ -264,19 +280,21 @@ document.getElementById("skip").addEventListener("click", () => {
     ranked= true;
     let composedUrl = `https://opentdb.com/api.php?amount=10&difficulty=hard`;
     apiRequest(composedUrl);
-    welcomePlayerName();
+    welcomePlayerName(playerName);
   })
 
 //Controllo input nome
 
 function controlInputName (){
     let input = document.getElementById("inputPassword2").value;
-    if (!input.replace(/\s/g, '').length) {
-      alert('not valid name, replaced with anonymous');
-      playerName = "anonymous";
-    } else {
-      playerName = input;
-    }  
+    if(Cookies.get("player") === undefined){
+      if (!input.replace(/\s/g, '').length) {
+        alert('not valid name, replaced with anonymous');
+        playerName = "anonymous";
+      } else {
+        playerName = input;
+      }
+    }
 }
 
 
