@@ -41,6 +41,31 @@ function controlCookie (){
 }
 controlCookie()
 
+// CRONOMETRO
+
+let currentTime;
+let startCounter;
+let idTimeout;
+function formatTime(s) {
+  return (
+    Math.floor((s % 3600) / 60) +
+    ":" +
+    Math.floor((s % 3600) % 60)
+  );
+}
+function upDateTime() {
+  var dif = Date.now() - startCounter;
+  dif = Math.round(dif / 1000);
+  currentTime = formatTime(dif);
+  timer.innerText = currentTime;
+  idTimeout = setTimeout(upDateTime, 1000);
+}
+function startChronometer() {
+  startCounter = Date.now();
+  alert(Date.now());
+  upDateTime();
+}
+
 
 //CONTROLLI AUDIO
 function audioControls() {
@@ -96,6 +121,7 @@ function apiRequest(url) {
     console.log(response)
     createRecapList();
     playAudio();
+    startChronometer();
   });
 }
 
