@@ -225,7 +225,7 @@ function checkIfRight(inputWord) {
     );
     Cookies.set("player", playerName)
     postData(playerName, currentPoints, ranked, gameTime);
-    window.location.href = `/results.html?result=${currentPoints}`
+   /*  window.location.href = `https://trivialapp-043f.restdb.io/views/results` */
        
   } else {
     currentQuestion++;
@@ -236,6 +236,25 @@ function checkIfRight(inputWord) {
 
 //Chiamata POST al database
 function postData (playerName, score, ranked, gameTime) {
+  var data = JSON.stringify({
+    "playerName": playerName,
+    "results": score,
+    "ranked": ranked,
+    "gameTime": gameTime
+  });
+
+  axios.post('https://trivialapp-043f.restdb.io/rest/punteggio-giocatori', data, { headers: {"x-apikey":"5f046bd8a529a1752c476e5d", "content-type":"application/json", "cache-control":"no-cache"}})
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+
+
+/* function postData (playerName, score, ranked, gameTime) {
   var data = JSON.stringify({
     "playerName": playerName,
     "results": score,
@@ -256,10 +275,10 @@ function postData (playerName, score, ranked, gameTime) {
   xhr.setRequestHeader("content-type", "application/json");
   xhr.setRequestHeader("x-apikey", "5f046bd8a529a1752c476e5d");
   xhr.setRequestHeader("cache-control", "no-cache");
-/*   axios.post('https://trivialapp-043f.restdb.io/rest/punteggio-giocatori', data, { headers: {"x-apikey":"5f046bd8a529a1752c476e5d"} }) */
+
   xhr.send(data);
 }
-
+ */
 // NEXT CHANCE FOR SKIP QUESTION
 let chanceForSkipQuestion = () => {};
 
@@ -301,7 +320,7 @@ document.getElementById("skip").addEventListener("click", () => {
     document.getElementById("optionSelection").classList.toggle('d-none');
     controlInputName ()
     console.log(playerName)
-    WelcomePlayer(playerName);
+    welcomePlayerName(playerName);
 });
 //Bottone invio nome Ranked
   document.getElementById("ConfirmNameRanked").addEventListener("click", ()=>{
