@@ -1,3 +1,13 @@
+
+let currentQuestion = 0;
+let infoQuestions = {}; //raccoglitore di variabili e dati vari
+let currentPoints = 0;
+let playerName;
+let gameTime;
+let ranked = false;
+let sound = false;
+
+
 //EASTER EGG ZAP
 function playAudioZap() {
   let trackZap = new Audio("https://trivialapp-043f.restdb.io/media/5f06d804498ad76800073f5a");
@@ -14,23 +24,31 @@ function playAudio() {
     track = new Audio("https://trivialapp-043f.restdb.io/media/5f072f98498ad76800074f52");
     track.play();
     track.volume = .2;
+    track.loop = true;
     document.getElementById("audioIcon").classList.toggle('audioIconOn');
     sound = true;
     }, 3000);
 }
 
-let currentQuestion = 0;
-let infoQuestions = {}; //raccoglitore di variabili e dati vari
-let currentPoints = 0;
-let playerName;
-let ranked = false;
-let sound = false;
+
+//CONTROLLI AUDIO
+function audioControls() {
+  if (sound) {
+    track.pause();
+    sound = false;
+    document.getElementById("audioIcon").classList.replace('audioIconOn', 'audioIconOff');
+  } else {
+    track.play();
+    sound = true;
+    document.getElementById("audioIcon").classList.replace('audioIconOff', 'audioIconOn');
+  }
+}
 
 // Controlla se sono presenti cookies con il nome in input prima del caricamento della pagina
 function controlCookie (){
   if (Cookies.get("player")=== undefined){
-    document.getElementById("inputPassword2").classList.toggle('d-none');
-    document.getElementById("labelinput").classList.toggle('d-none');
+    document.getElementById("inputNameWrapper").classList.toggle('d-none');
+    /* document.getElementById("labelinput").classList.toggle('d-none'); */
     console.log("Non ho i cookies");
   }else{
     playerName = Cookies.get("player");
@@ -39,10 +57,9 @@ function controlCookie (){
 
   }
 }
-controlCookie()
+
 
 // CRONOMETRO
-
 let currentTime;
 let startCounter;
 let idTimeout;
@@ -58,27 +75,16 @@ function upDateTime() {
   dif = Math.round(dif / 1000);
   currentTime = formatTime(dif);
   timer.innerText = currentTime;
+  gameTime = JSON.stringify(currentTime);
+  console.log(gameTime);
   idTimeout = setTimeout(upDateTime, 1000);
 }
 function startChronometer() {
   startCounter = Date.now();
-  alert(Date.now());
   upDateTime();
 }
 
 
-//CONTROLLI AUDIO
-function audioControls() {
-    if (sound) {
-      track.pause();
-      sound = false;
-      document.getElementById("audioIcon").classList.replace('audioIconOn', 'audioIconOff');
-    } else {
-      track.play();
-      sound = true;
-      document.getElementById("audioIcon").classList.replace('audioIconOff', 'audioIconOn');
-    }
-  }
 //Costructor HTML che richiede lista categoria/id all'API e forma le relative opzioni dentro al form con id "category"
 
 function getCategoryOptions() {
@@ -100,8 +106,9 @@ function buildCategoryOptions(dataArr) {
 
 }
 
-//Chiamata della funzione per le opzioni
+//Chiamata delle funzioni a caricamento pagina
 getCategoryOptions();
+controlCookie();
 
 //Composizione dell'URL e chiamata all'API con le opzioni come query
 function urlComposer() {
@@ -214,10 +221,10 @@ function checkIfRight(inputWord) {
 
   if (currentQuestion == infoQuestions.questions.length - 1) {
     alert(
-      `domande finite con punteggio ${currentPoints}. Necessario redirect a pagina esterna o costruzione di elemento html nuovo`
+      `domande finite con punteggio ${currentPoints}. Necessario redirect a pagina esterna o costruzione di elemento html nuovo ${gameTime}`
     );
     Cookies.set("player", playerName)
-    postData(playerName, currentPoints, ranked);
+    postData(playerName, currentPoints, ranked, gameTime);
     window.location.href = `/results.html?result=${currentPoints}`
        
   } else {
@@ -228,11 +235,12 @@ function checkIfRight(inputWord) {
 }
 
 //Chiamata POST al database
-function postData (playerName, score, ranked) {
+function postData (playerName, score, ranked, gameTime) {
   var data = JSON.stringify({
     "playerName": playerName,
     "results": score,
-    "ranked": ranked
+    "ranked": ranked,
+    "gameTime": gameTime
   });
   
   var xhr = new XMLHttpRequest();
@@ -248,7 +256,7 @@ function postData (playerName, score, ranked) {
   xhr.setRequestHeader("content-type", "application/json");
   xhr.setRequestHeader("x-apikey", "5f046bd8a529a1752c476e5d");
   xhr.setRequestHeader("cache-control", "no-cache");
-  
+/*   axios.post('https://trivialapp-043f.restdb.io/rest/punteggio-giocatori', data, { headers: {"x-apikey":"5f046bd8a529a1752c476e5d"} }) */
   xhr.send(data);
 }
 
@@ -257,11 +265,11 @@ let chanceForSkipQuestion = () => {};
 
 //FUNZIONE BENVENUTO
 function welcomePlayerName (name){
-  let welcome = `Welcome ${name}`;
+  let welcome = `Logged in as: ${name}`;
   document.getElementById("welcomePlayer").innerHTML = `<h3> ${welcome}</h3>`;
 }
 
-//Event Listener BOTTONI
+//Event Listener BOTTONI-----------
 
 //Bottone Controllo Audio
 document.getElementById("audioControls").addEventListener("click", () => audioControls());
@@ -312,11 +320,11 @@ document.getElementById("skip").addEventListener("click", () => {
 //Controllo input nome
 
 function controlInputName (){
-    let input = document.getElementById("inputPassword2").value;
+    let input = document.getElementById("inputName").value;
     if(Cookies.get("player") === undefined){
       if (!input.replace(/\s/g, '').length) {
         alert('not valid name, replaced with anonymous');
-        playerName = "anonymous";
+        playerName = "Anonymous";
       } else {
         playerName = input;
       }

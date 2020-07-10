@@ -88,6 +88,7 @@
       .centerContainer{
         margin-top: 3rem;
       }
+
       #question {
         min-height: 75px;
       }
@@ -117,7 +118,7 @@
       }
       .audioIconOff {
         position:absolute;
-        right: 50px;
+        right: 30px;
         top: 1rem;
         width: 30px;
         height: 30px;
@@ -128,7 +129,7 @@
       }
       #timer {
           position: absolute;
-          right: 8vw;
+          right: 80px;
           top: 1.1rem;
         }
       @media (max-width: 480px) {
@@ -151,16 +152,16 @@
   <!-- AUDIO CONTROLS & TIMER CHRONOMETER -->
   <div id="audioControls" class="audioIconWrapper"><span id="timer"></span><span id="audioIcon" class=""></span></div>
   <!--BENVENUTO PIU PLAYER NAME-->
-  <div id="welcomePlayer" class="text-cente p-4"></div>
+  <div id="welcomePlayer" class="text-center p-4"></div>
   <!-- FORM INSERIMENTO NOME -->
   <div class="d-flex justify-content-center mx-1 mt-4 flex-grow-1" id="formName">
     <form class="form-inline">
-      <div class="form-group mx-sm-3 mb-2">
-        <label for="inputPassword2" class="d-none" id="labelinput" >Enter Name</label>
-        <input maxlength="10" minlength="1" type="text" class="form-control ml-2 d-none" id="inputPassword2">
+      <div id="inputNameWrapper" class="form-group d-none mx-sm-3 mb-2">
+        <label for="inputName" id="labelinput" >Enter Name</label>
+        <input maxlength="10" minlength="1" type="text" class="form-control ml-2" id="inputName">
       </div>
       <div class="d-flex .justify-content-center flex-wrap">
-        <button type="button " class="btn btn-danger btnCustom h-10 mb-2 align-self-end px-5" id="ConfirmName">A Jugar¡!</button>
+        <button type="button " class="btn btn-danger btnCustom h-10 mb-2 mx-1 align-self-end px-5" id="ConfirmName">¡ A Jugar !</button>
         <button type="button " class="btn btn-danger btnCustom h-10 mb-2 align-self-end px-5" id="ConfirmNameRanked">Ranked Play</button>
       </div>
     </form>
